@@ -1,4 +1,5 @@
 using Bokcitat.Api.Data;
+using Bokcitat.Api.Dto;
 using Bokcitat.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,5 +34,21 @@ public class BooksController : ControllerBase
         }
 
         return book;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Book>> CreateBook(BookRequest request)
+    {
+        var book = new Book
+        {
+            Title = request.Title,
+            Author = request.Author,
+            PublicationDate = request.PublicationDate!.Value
+        };
+
+        _context.Books.Add(book);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
     }
 }

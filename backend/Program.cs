@@ -1,6 +1,6 @@
 using Bokcitat.Api.Data;
 using Microsoft.EntityFrameworkCore;
-using Scalar.AspNetCore;
+using Scalar.AspNetCore; 
 
 var builder = WebApplication.CreateBuilder(args);
 
