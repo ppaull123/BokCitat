@@ -1,0 +1,6 @@
+@Bokcitat.Api_HostAddress = http://localhost:5175
+
+GET {{Bokcitat.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
