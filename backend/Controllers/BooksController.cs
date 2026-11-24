@@ -51,4 +51,39 @@ public class BooksController : ControllerBase
 
         return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateBook(int id, BookRequest request)
+    {
+        var book = await _context.Books.FindAsync(id);
+
+        if (book == null)
+        {
+            return NotFound();
+        }
+
+        book.Title = request.Title;
+        book.Author = request.Author;
+        book.PublicationDate = request.PublicationDate!.Value;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteBook(int id)
+    {
+        var book = await _context.Books.FindAsync(id);
+
+        if (book == null)
+        {
+            return NotFound();
+        }
+
+        _context.Books.Remove(book);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
